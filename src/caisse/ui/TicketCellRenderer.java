@@ -1,6 +1,5 @@
 package caisse.ui;
 
-//import org.openconcerto.erp.core.finance.tax.model.TaxeCache;
 import caisse.model.Article;
 import ui.touch.ScrollableList;
 import utils.Pair;

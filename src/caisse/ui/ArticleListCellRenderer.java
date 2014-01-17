@@ -9,7 +9,6 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.RenderingHints;
-import java.math.RoundingMode;
 
 import javax.swing.JLabel;
 import javax.swing.JList;

@@ -5,27 +5,21 @@ import utils.ExceptionHandler;
 import utils.Pair;
 
 import java.io.File;
-import java.io.FilenameFilter;
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import sql.model.Facture;
 import sql.model.LigneFacture;
 import sql.model.LigneFactureId;
-import sql.model.VousEtesCo;
 import sql.model.mySession;
 
 public class Ticket {
 
     private static boolean inited = false;
     // Propre a ticket
-    private List<Paiement> paiements = new ArrayList<Paiement>();
+    private List<Paiement> paiements = new ArrayList<>();
     private final List<Pair<Article, Integer>> items = new ArrayList<Pair<Article, Integer>>();
     private Date date;
     private static int number;
@@ -35,53 +29,6 @@ public class Ticket {
     Set<LigneFacture> lignesFacture;
     //private static final SQLTable tableArticle = Configuration.getInstance().getRoot().findTable("ARTICLE");
 
-    public static Ticket getTicketFromCode(String code) {
-        // Code: 01_05042011_00002
-        // filtre les chiffres
-        final StringBuilder b = new StringBuilder();
-        for (int i = 0; i < code.length(); i++) {
-            final char c = code.charAt(i);
-            if (Character.isDigit(c)) {
-                b.append(c);
-            }
-        }
-        code = b.toString();
-        // Code: 010504201100002
-        // nÂ°caisse sur 2 caracteres
-        // date jour mois annÃ©e JJMMAAAA
-        // numero de ticket formatÃ© sur 5 caractÃ¨res
-
-        final Ticket t = new Ticket(1);
-        Calendar c = Calendar.getInstance();
-        try {
-            int nCaisse = Integer.parseInt(code.substring(0, 2));
-            int nJ = Integer.parseInt(code.substring(2, 4));
-            int nM = Integer.parseInt(code.substring(4, 6));
-            int nA = 2000 + Integer.parseInt(code.substring(6, 8));
-            int nNumber = Integer.parseInt(code.substring(8, 13));
-
-            c.setTimeInMillis(0);
-            c.set(nA, nM - 1, nJ, 0, 0, 0);
-
-            // Set fields
-            t.caisseNumber = nCaisse;
-            t.date.setTime(c.getTimeInMillis());
-            t.number = nNumber;
-
-
-            // article
-
-            // paiement
-
-        } catch (Exception e) {
-            System.err.println("Error with ticket code : " + code);
-            e.printStackTrace();
-            return null;
-        }
-
-        return t;
-
-    }
 
     public Set<LigneFacture> getLignesFacture() {
         return lignesFacture;
@@ -220,7 +167,7 @@ public class Ticket {
             }
         }
         if (!alreadyExist) {
-            Pair<Article, Integer> line = new Pair<Article, Integer>(a, 1);
+            Pair<Article, Integer> line = new Pair<>(a, 1);
             this.items.add(line);
         }
 
@@ -236,7 +183,7 @@ public class Ticket {
             }
         }
         if (!alreadyExist) {
-            Pair<Article, Integer> line = new Pair<Article, Integer>(a, 1);
+            Pair<Article, Integer> line = new Pair<>(a, 1);
             this.items.add(line);
         }
 
