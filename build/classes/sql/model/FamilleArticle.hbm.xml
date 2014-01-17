@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 janv. 2014 17:39:49 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sql.model.FamilleArticle" table="famille_article" catalog="leaderpapetrie">
+        <id name="idFamille" type="java.lang.Short">
+            <column name="id_famille" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="familleArticle" class="sql.model.FamilleArticle" fetch="select">
+            <column name="id_famille_pere" />
+        </many-to-one>
+        <property name="nomFamille" type="string">
+            <column name="nom_famille" length="50" not-null="true" unique="true" />
+        </property>
+        <set name="familleArticles" inverse="true">
+            <key>
+                <column name="id_famille_pere" />
+            </key>
+            <one-to-many class="sql.model.FamilleArticle" />
+        </set>
+        <set name="articles" inverse="true">
+            <key>
+                <column name="id_famille" not-null="true" />
+            </key>
+            <one-to-many class="sql.model.Article" />
+        </set>
+    </class>
+</hibernate-mapping>

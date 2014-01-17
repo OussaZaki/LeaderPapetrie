@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 janv. 2014 17:39:49 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sql.model.User" table="user" catalog="leaderpapetrie">
+        <id name="id" type="java.lang.Short">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="userName" type="string">
+            <column name="user_name" length="40" not-null="true" unique="true" />
+        </property>
+        <property name="psswd" type="string">
+            <column name="psswd" length="40" not-null="true" />
+        </property>
+        <property name="isAdmin" type="java.lang.Boolean">
+            <column name="isAdmin" />
+        </property>
+        <property name="FName" type="string">
+            <column name="f_name" length="50" />
+        </property>
+        <property name="LName" type="string">
+            <column name="l_name" length="50" />
+        </property>
+        <set name="factures" inverse="true">
+            <key>
+                <column name="id_user" not-null="true" />
+            </key>
+            <one-to-many class="sql.model.Facture" />
+        </set>
+    </class>
+</hibernate-mapping>

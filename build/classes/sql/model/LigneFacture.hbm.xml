@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 janv. 2014 17:39:49 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sql.model.LigneFacture" table="ligne_facture" catalog="leaderpapetrie">
+        <composite-id name="id" class="sql.model.LigneFactureId">
+            <key-property name="idFacture" type="int">
+                <column name="id_facture" />
+            </key-property>
+            <key-property name="idArticle" type="int">
+                <column name="id_article" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="article" class="sql.model.Article" update="false" insert="false" fetch="select">
+            <column name="id_article" not-null="true" />
+        </many-to-one>
+        <many-to-one name="facture" class="sql.model.Facture" update="false" insert="false" fetch="select">
+            <column name="id_facture" not-null="true" />
+        </many-to-one>
+        <property name="qteArticle" type="int">
+            <column name="qte_article" not-null="true" />
+        </property>
+        <property name="subtotal" type="float">
+            <column name="subtotal" precision="12" scale="0" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

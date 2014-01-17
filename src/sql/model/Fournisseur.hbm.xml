@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 janv. 2014 17:39:49 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sql.model.Fournisseur" table="fournisseur" catalog="leaderpapetrie">
+        <id name="idFournisseur" type="java.lang.Short">
+            <column name="id_fournisseur" />
+            <generator class="identity" />
+        </id>
+        <property name="nomFournisseur" type="string">
+            <column name="nom_fournisseur" length="50" not-null="true" />
+        </property>
+        <property name="tel" type="string">
+            <column name="tel" length="40" />
+        </property>
+        <property name="adr" type="string">
+            <column name="adr" />
+        </property>
+        <property name="mail" type="string">
+            <column name="mail" length="100" />
+        </property>
+        <set name="articles" inverse="true">
+            <key>
+                <column name="id_fournisseur" />
+            </key>
+            <one-to-many class="sql.model.Article" />
+        </set>
+    </class>
+</hibernate-mapping>

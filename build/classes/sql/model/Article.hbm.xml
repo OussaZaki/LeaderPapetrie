@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 15 janv. 2014 17:39:49 by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sql.model.Article" table="article" catalog="leaderpapetrie">
+        <id name="idArticle" type="java.lang.Integer">
+            <column name="id_article" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="fournisseur" class="sql.model.Fournisseur" fetch="select">
+            <column name="id_fournisseur" />
+        </many-to-one>
+        <many-to-one name="familleArticle" class="sql.model.FamilleArticle" fetch="select">
+            <column name="id_famille" not-null="true" />
+        </many-to-one>
+        <property name="infos" type="string">
+            <column name="infos" length="100" />
+        </property>
+        <property name="libelle" type="string">
+            <column name="libelle" not-null="true" />
+        </property>
+        <property name="nom" type="string">
+            <column name="nom" length="50" not-null="true" />
+        </property>
+        <property name="PAchat" type="java.lang.Float">
+            <column name="p_achat" precision="12" scale="0" />
+        </property>
+        <property name="PVente" type="float">
+            <column name="p_vente" precision="12" scale="0" not-null="true" />
+        </property>
+        <property name="qteMin" type="java.lang.Integer">
+            <column name="qte_min" />
+        </property>
+        <property name="qteStock" type="int">
+            <column name="qte_stock" not-null="true" />
+        </property>
+        <property name="marque" type="string">
+            <column name="marque" length="25" not-null="true" />
+        </property>
+        <set name="ligneFactures" inverse="true">
+            <key>
+                <column name="id_article" not-null="true" />
+            </key>
+            <one-to-many class="sql.model.LigneFacture" />
+        </set>
+    </class>
+</hibernate-mapping>
