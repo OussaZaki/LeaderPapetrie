@@ -1,0 +1,34 @@
+CREATE TABLE User(
+	id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	user_name VARCHAR(40) NOT NULL,
+	psswd CHAR (40) NOT NULL,
+	isAdmin TINYINT(1) DEFAULT NULL,
+	f_name VARCHAR(50),
+	l_name VARCHAR(50),
+    	PRIMARY KEY (id),
+	UNIQUE KEY (user_name),
+	KEY (user_name, psswd)
+);
+
+INSERT INTO User
+VALUES ('1', 'root', 'toor', '1','zaki', 'oussama')
+
+private static String QUERY_BASED_ON_FIRST_NAME="from Actor a where a.userName like '";
+executeHQLQuery(QUERY_BASED_ON_FIRST_NAME + userNameTextField.getText() + "'");
+
+private void executeHQLQuery(String hql) {
+    try {
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        session.beginTransaction();
+        Query q = session.createQuery(hql);
+        List resultList = q.list();
+        displayResult(resultList);
+        session.getTransaction().commit();
+    } catch (HibernateException he) {
+        he.printStackTrace();
+    }
+}
+
+
+* Mot de passe incorrect
+* Identifiant inexistant

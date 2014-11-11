@@ -1,0 +1,66 @@
+CREATE TABLE User(
+	id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
+	user_name VARCHAR(40) NOT NULL,
+	psswd CHAR (40) NOT NULL,
+	isAdmin TINYINT(1) DEFAULT NULL,
+	f_name VARCHAR(50),
+	l_name VARCHAR(50),
+    	PRIMARY KEY (id),
+	UNIQUE KEY (user_name),
+	KEY (user_name, psswd)
+);
+
+
+CREATE TABLE Fournisseur (
+  id_fournisseur  SMALLINT NOT NULL AUTO_INCREMENT, 
+  nom_fournisseur VARCHAR(50) NOT NULL, 
+  tel             VARCHAR(40), 
+  adr             VARCHAR(255), 
+  mail            VARCHAR(100), 
+  PRIMARY KEY (id_fournisseur)
+);
+
+CREATE TABLE Famille_Article (
+  id_famille      SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT, 
+  nom_famille     VARCHAR(50) NOT NULL, 
+  id_famille_pere SMALLINT UNSIGNED, 
+  PRIMARY KEY (id_famille)
+);
+
+CREATE TABLE Article (
+  id_article     INTEGER NOT NULL AUTO_INCREMENT, 
+  infos          VARCHAR(100), 
+  libelle        VARCHAR(255) NOT NULL, 
+  nom            VARCHAR(50) NOT NULL, 
+  p_achat        FLOAT, 
+  p_vente        FLOAT NOT NULL, 
+  qte_min        INTEGER, 
+  qte_stock      INTEGER NOT NULL, 
+  id_famille     SMALLINT UNSIGNED NOT NULL, 
+  id_fournisseur SMALLINT, 
+  PRIMARY KEY (id_article)
+);
+
+CREATE TABLE Ligne_Facture (
+  id_facture  INTEGER NOT NULL, 
+  id_article  INTEGER NOT NULL, 
+  qte_article INTEGER NOT NULL, 
+  subtotal    FLOAT NOT NULL, 
+  PRIMARY KEY (id_facture, id_article)
+);
+
+CREATE TABLE Facture (
+  Id_facture    INTEGER NOT NULL AUTO_INCREMENT, 
+  nbr_ligne     INTEGER NOT NULL, 
+  montant_total FLOAT NOT NULL, 
+  date_valid    DATE NOT NULL, 
+  id_user       SMALLINT UNSIGNED NOT NULL, 
+  PRIMARY KEY (Id_facture)
+);
+
+ALTER TABLE Famille_Article ADD INDEX extrait (id_famille_pere), ADD CONSTRAINT extrait FOREIGN KEY (id_famille_pere) REFERENCES Famille_Article (id_famille);
+ALTER TABLE Article ADD INDEX nomFamille (id_famille), ADD CONSTRAINT nomFamille FOREIGN KEY (id_famille) REFERENCES Famille_Article (id_famille);
+ALTER TABLE Article ADD INDEX fournit (id_fournisseur), ADD CONSTRAINT fournit FOREIGN KEY (id_fournisseur) REFERENCES Fournisseur (id_fournisseur);
+ALTER TABLE Ligne_Facture ADD INDEX appartient (id_facture), ADD CONSTRAINT appartient FOREIGN KEY (id_facture) REFERENCES Facture (Id_facture);
+ALTER TABLE Ligne_Facture ADD INDEX appartientArticle (id_article), ADD CONSTRAINT appartientArticle FOREIGN KEY (id_article) REFERENCES Article (id_article);
+ALTER TABLE Facture ADD INDEX Valide (id_user), ADD CONSTRAINT Valide FOREIGN KEY (id_user) REFERENCES `User` (id);
